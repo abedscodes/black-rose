@@ -1,0 +1,126 @@
+.products-container {
+  padding: 2rem 0;
+  background-color: var(--background-light);
+  min-height: calc(100vh - 60px); /* Adjust based on your header height */
+  padding-bottom: 10rem;
+}
+
+/* Header Section */
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Search Component */
+.product-search {
+  flex: 1;
+  max-width: 600px;
+}
+
+.product-search .input-group {
+  box-shadow: var(--shadow-sm);
+}
+
+.product-search .form-control {
+  border: 1px solid var(--border-color);
+  padding: 0.625rem 1rem;
+  font-family: var(--secondary-font);
+}
+
+.product-search .input-group-text {
+  background-color: var(--background-white);
+  border: 1px solid var(--border-color);
+  border-left: none;
+  color: var(--text-medium);
+}
+
+/* Sort Component */
+.product-sort {
+  width: auto;
+  min-width: 200px;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: var(--secondary-font);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Filters Section */
+.product-filters {
+  background-color: var(--background-white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.product-filters h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.product-filters .accordion {
+  --bs-accordion-border-color: transparent;
+  --bs-accordion-btn-padding-y: 1rem;
+  --bs-accordion-btn-padding-x: 0;
+  /* --bs-accordion-active-color: var(--text-dark);
+  --bs-accordion-active-bg: transparent; */
+  --bs-accordion-border-width: 0;
+}
+
+.product-filters .accordion-button {
+  font-weight: 500;
+  font-family: var(--secondary-font);
+}
+
+.product-filters .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.product-filters .form-check {
+  margin-bottom: 0.75rem;
+}
+
+.product-filters .form-check-label {
+  color: var(--text-medium);
+  font-family: var(--secondary-font);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .products-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .product-search {
+    max-width: 100%;
+  }
+
+  .product-sort {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    padding: 1rem 0;
+  }
+
+  .product-filters {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}

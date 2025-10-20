@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="312" height="76" viewBox="0 0 312 76">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 250px;
+        fill: #c586a5;
+        font-family: "Peanut Butter";
+      }
+
+      .cls-2 {
+        font-size: 50px;
+        font-family: "Libre Baskerville";
+      }
+    </style>
+  </defs>
+  <text id="ADMIN_PANEL" data-name="ADMIN PANEL" class="cls-1" transform="translate(5.851 75.88) scale(0.09 0.09)">ADMIN PANEL</text>
+  <text id="BlackRose." class="cls-2" x="0.333" y="52.786">BlackRose.</text>
+</svg>

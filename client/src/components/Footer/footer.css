@@ -1,0 +1,84 @@
+/* Custom Footer Styles */
+
+footer{
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.footer-custom {
+  background-color: var(--background-footer);
+  color: var(--background-white);
+  font-family: var(--secondary-font);
+}
+
+.footer-custom .footer-logo {
+  width: 35px;
+  height: 35px;
+  transition: transform 0.2s ease;
+  object-fit: contain;
+}
+
+.footer-custom .footer-nav {
+  padding-top: 2rem;
+}
+
+.footer-custom h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: var(--primary-font);
+  color: var(--background-white);
+}
+
+.footer-custom ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-custom ul li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.footer-custom ul li a:hover {
+  color: var(--background-white);
+}
+
+.footer-custom .social-links a {
+  color: var(--background-white);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-custom .social-links a:hover {
+  opacity: 0.8;
+}
+
+.footer-custom .footer-bottom {
+  border-color: var(--border-dark) !important;
+}
+
+.footer-custom .brand-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--background-white);
+}
+
+.footer-custom .acknowledgment {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.footer-custom .text-muted {
+  font-size: 0.8rem;
+  color: var(--text-light) !important;
+}
+
+/* Make sure footer sticks to bottom if content is short */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

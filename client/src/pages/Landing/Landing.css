@@ -1,0 +1,6 @@
+/* Add any specific landing page styles here */
+/* For example, you might want to add some spacing between sections */
+
+.product-section + .product-section {
+    margin-top: 2rem;
+}

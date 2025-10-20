@@ -1,0 +1,101 @@
+/* Global imports and variables */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  /* Typography */
+  --primary-font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --secondary-font: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Colors */
+  --text-dark: #1a1a1a;         /* Near black for primary text */
+  --text-medium: #4a4a4a;       /* Dark gray for secondary text */
+  --text-light: #717171;        /* Medium gray for tertiary text */
+  --text-white: #ffffff;        /* Pure white for text */
+  --text-gold: #e7b73c;         /* Gold for accents and CTAs */
+  --text-black: #000000;         /* Pure black for text */
+  
+  /* Brand Colors */
+  --primary: #2c3e50;           /* Deep blue-gray for primary elements */
+  --secondary: #34495e;         /* Lighter blue-gray for secondary elements */
+  --accent: #e7b73c;           /* Gold for accents and CTAs */
+  --accent-red: #c0392b;       /* Red for accents and CTAs */
+
+  /* Pure Colors */
+  --pure-white: #ffffff;        /* Pure white*/
+  --pure-black: #000000;        /* Pure black*/
+  
+  /* UI Colors */
+  --border-color: #e5e7eb;      /* Light gray for borders */
+  --border-dark: #333333;        /* Dark gray for borders */
+  --background-light: #f8f9fa;  /* Very light gray for backgrounds */
+  --background-white: #ffffff;  /* Pure white */
+  --background-dark: #000000;   /* Pure black for dark backgrounds */
+  --background-footer: #000000; /* Pure black for footer */
+  
+  /* Status Colors */
+  --success: #27ae60;          /* Green for success states */
+  --warning: #f39c12;          /* Orange for warnings */
+  --error: #c0392b;            /* Dark red for errors */
+  
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+a.active hr{
+  display: block !important; 
+}
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--primary-font);
+  color: var(--text-dark);
+  /* line-height: 1.5; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* h1, h2, h3, h4, h5, h6 {
+  font-family: var(--primary-font);
+  font-weight: 500;
+  color: var(--text-dark);
+} */
+
+/* p {
+  color: var(--text-medium);
+} */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.section-title {
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-family: var(--primary-font);
+}
+
+
+@media (max-width: 640px) {
+  a.active {
+    background-color: black;
+    color: white;
+  }
+}
