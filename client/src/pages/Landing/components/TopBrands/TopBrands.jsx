@@ -4,7 +4,7 @@
 // import { useNavigate } from 'react-router-dom';
 
 // // Import logos
-// import sonyLogo from '../../../../assets/brand-logos/SONY.svg';
+// import sonyLogo from '../../../../assets/brand-logos/Sony.svg';
 // import canonLogo from '../../../../assets/brand-logos/Canon.svg';
 // import nikonLogo from '../../../../assets/brand-logos/Nikon.jpg';
 // import fujifilmLogo from '../../../../assets/brand-logos/Fujifilm.png';
@@ -73,7 +73,7 @@ import { ShopContext } from '../../../../context/ShopContext';
 import './TopBrands.css';
 
 // Import logos
-import sonyLogo from '../../../../assets/brand-logos/SONY.svg';
+import sonyLogo from '../../../../assets/brand-logos/Sony.svg';
 import canonLogo from '../../../../assets/brand-logos/Canon.svg';
 import nikonLogo from '../../../../assets/brand-logos/Nikon.jpg';
 import fujifilmLogo from '../../../../assets/brand-logos/Fujifilm.png';
