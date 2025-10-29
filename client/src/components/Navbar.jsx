@@ -32,10 +32,10 @@ const Navbar = () => {
                 <hr className='w-2/4 border-none h-[1.5px] bg-white hidden'/>
             </NavLink>
 
-            {/* <NavLink to='/about' className={'flex flex-col items-center gap-1'}>
+            <NavLink to='/about-us' className={'flex flex-col items-center gap-1'}>
                 <p className='text-white'>ABOUT</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-white hidden'/>
-            </NavLink> */}
+            </NavLink>
 
             <NavLink to='/contact-us' className={'flex flex-col items-center gap-1'}>
                 <p className='text-white'>CONTACT</p>

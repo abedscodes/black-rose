@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets'
 
 const developers = [
   {
-    name: 'Muhammad Abed',
+    name: 'Muhammed Abed',
     role: 'Intern',
     image: assets.dev_profile_1,
     description: 'Frontend, Backend, and Database'
