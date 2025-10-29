@@ -69,6 +69,7 @@
 
 import React, { useContext } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link, NavLink } from 'react-router-dom'
 import { ShopContext } from '../../../../context/ShopContext';
 import './TopBrands.css';
 
@@ -121,9 +122,10 @@ function TopBrands() {
                     </Col>
                     <Col md={3}>
                         <div className="explore-more">
-                            <span className="info-icon">ⓘ</span>
                             <div className="explore-content">
-                                <h3>Explore All →</h3>
+                                <Link to="/products">
+                                    <h3>Explore All →</h3>
+                                </Link>
                             </div>
                         </div>
                     </Col>
