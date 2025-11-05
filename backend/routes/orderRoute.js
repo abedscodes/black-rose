@@ -8,7 +8,7 @@ const orderRouter = express.Router();
 orderRouter.post('/list', adminAuth, allOrders);
 orderRouter.post('/status', adminAuth, updateStaus);
 
-orderRouter.post('/place', authUser, placeOrder);
+orderRouter.post('/place', placeOrder);
 orderRouter.post('/stripe', authUser, placeOrderStripe);
 orderRouter.post('/razorpay', authUser, placeOrderRazorpay);
 

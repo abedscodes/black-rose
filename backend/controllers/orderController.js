@@ -7,22 +7,30 @@ const placeOrder = async (req, res) => {
         const {userId,items,amount,address} = req.body;
 
         const orderData = {
-            userId,
+            
             items,
             amount,
             address,
             status: 'Order Placed',
             paymentMethod: 'COD',
             payment: false,
-            date: Date.now()
+            date: Date.now(),
+        };
+
+        if (userId) {
+            orderData.userId = userId;
         }
 
         const newOrder = new orderModel(orderData);
         await newOrder.save()
 
-        await userModel.findByIdAndUpdate(userId, {cartData: {}})
+        // Clear cart only for logged-in users
+        if (userId) {
+            await userModel.findByIdAndUpdate(userId, { cartData: {} });
+        }
 
-        res.json({success:true, message: 'Order Placed Successfully'})
+        // res.json({success:true, message: 'Order Placed Successfully'})
+        res.json({ success: true, message: 'Order Placed Successfully', order: newOrder });
 
     } catch (error) {
         console.log(error);

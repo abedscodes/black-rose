@@ -15,6 +15,7 @@ import PlaceOrder from './pages/PlaceOrder';
 import Orders from './pages/Order';
 import Products from './pages/Products';
 import SearchBar from './components/SearchBar';
+import OrderSuccess from "./pages/OrderSuccess";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
       </Routes>
       <Footer />
     </div>
