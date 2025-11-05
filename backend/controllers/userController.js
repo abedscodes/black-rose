@@ -95,4 +95,30 @@ const adminLogin = async (req, res) => {
     }
 };
 
-export { loginUser, registerUser, adminLogin }
+// Get logged-in user info
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.body.userId).select("name email");
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // Split full name into first and last
+    const [firstName, ...lastParts] = user.name.split(" ");
+    const lastName = lastParts.join(" ");
+
+    res.json({
+      success: true,
+      user: {
+        firstName,
+        lastName,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { loginUser, registerUser, adminLogin, getUserProfile };

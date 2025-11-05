@@ -5,12 +5,11 @@ import axios from "axios";
 
 const Orders = () => {
   const { backendUrl, token, currency } = useContext(ShopContext);
-
-  const [orderData, setOrderData] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const loadOrderData = async () => {
     try {
-      if (!token) return null;
+      if (!token) return;
 
       const response = await axios.post(
         backendUrl + "/api/order/userorders",
@@ -19,18 +18,9 @@ const Orders = () => {
       );
 
       if (response.data.success) {
-        let allOrdersItem = [];
-        response.data.orders.forEach((order) => {
-          order.items.forEach((item) => {
-            item.status = order.status;
-            item.payment = order.payment;
-            item.paymentMethod = order.paymentMethod;
-            item.date = order.date;
-            allOrdersItem.push(item);
-          });
-        });
-
-        setOrderData(allOrdersItem.reverse());
+        // Sort newest orders first
+        const sortedOrders = response.data.orders.sort((a, b) => b.date - a.date);
+        setOrders(sortedOrders);
       }
     } catch (error) {
       console.log(error);
@@ -42,43 +32,79 @@ const Orders = () => {
   }, [token]);
 
   return (
-    <div className="border-t pt-16 px-15 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
-      <div className="text-2xl">
+    <div className="border-t pt-16 px-20 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+      <div className="text-2xl mb-8">
         <Title text1={"MY"} text2={"ORDERS"} />
       </div>
 
-      <div className="mt-6 space-y-4">
-        {orderData.map((item, index) => (
-          <div
-            key={index}
-            className="py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-          >
-            {/* Left section: Image + Name */}
-            <div className="flex items-start gap-4 md:gap-6 text-sm md:flex-1">
-              <img className="w-16 sm:w-20 rounded" src={item.image[0]} alt={item.name} />
-              <div className="flex flex-col gap-1">
-                <p className="sm:text-base font-medium">{item.name}</p>
-                <p className="text-gray-500 text-sm">Quantity: {item.quantity}</p>
-                <p className="text-gray-500 text-sm">
-                  Price: {currency} {item.price}
+      {orders.length === 0 ? (
+        <p className="text-gray-600 text-center mt-8">No orders found.</p>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {orders.map((order, index) => (
+            <div
+              key={index}
+              className="border border-gray-300 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                <p className="text-sm text-gray-600">
+                  <strong>Date:</strong>{" "}
+                  {new Date(order.date).toLocaleDateString()}
                 </p>
-                <p className="text-gray-500 text-sm">
-                  Date: <span className="text-gray-400">{new Date(item.date).toDateString()}</span>
+                <p className="text-sm text-gray-600">
+                  <strong>Payment:</strong> {order.paymentMethod}
                 </p>
-                <p className="text-gray-500 text-sm">
-                  Payment: <span className="text-gray-400">{item.paymentMethod}</span>
+                <p className="text-sm text-gray-600">
+                  <strong>Status:</strong>{" "}
+                  <span className="text-green-600 font-medium">
+                    {order.status}
+                  </span>
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                {order.items.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-4 border-t pt-3 first:border-t-0 first:pt-0"
+                  >
+                    <img
+                      src={item.image[0]}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                    <div>
+                      <p className="font-medium text-gray-800">
+                        {item.name.length > 50
+                          ? item.name.slice(0, 50) + "..."
+                          : item.name}
+                      </p>
+                      <div className="flex items-center gap-3 text-sm text-gray-700 mt-1">
+                        <p>
+                          {currency}
+                          {item.price}
+                        </p>
+                        <p>Qty: {item.quantity}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 border-t pt-3 flex justify-between text-sm text-gray-700">
+                <p>
+                  <strong>Total:</strong> {currency}
+                  {order.amount}
+                </p>
+                <p>
+                  <strong>Address:</strong> {order.address.street},{" "}
+                  {order.address.city}
                 </p>
               </div>
             </div>
-
-            {/* Right section: Status */}
-            <div className="flex items-center gap-2 mt-3 md:mt-0 md:w-1/4">
-              <span className="min-w-2 h-2 rounded-full bg-green-500 inline-block"></span>
-              <p className="text-sm md:text-base font-medium">{item.status}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

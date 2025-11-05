@@ -1,12 +1,14 @@
-﻿import React, { useContext, useState } from "react";
+﻿import React, { useContext, useState, useEffect } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const { navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,65 +21,42 @@ const PlaceOrder = () => {
     phone: "",
   });
 
+ 
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
 
-    setFormData(data => ({...data,[name]:value}))
-  }
+  // 🧩 Fetch user info to autofill form
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (!token) return;
 
-  // const onSubmitHandler = async(event) => {
-  //   event.preventDefault();
-  //   try {
-  //     let orderItems = [];
-  //     for (const itemId in cartItems) {
-  //       if (cartItems[itemId] > 0) {
-  //         const itemInfo = structuredClone(products.find(product => product._id === itemId));
-  //         if (itemInfo) {
-  //           itemInfo.quantity = cartItems[itemId];
-  //           orderItems.push(itemInfo);
-  //         }
-  //       }
-  //     }
+      try {
+        const response = await axios.get(`${backendUrl}/api/user/profile`, {
+          headers: { token },
+        });
 
-  //    let orderData = {
-  //     address: formData,
-  //     items: orderItems,
-  //     amount: getCartAmount() + delivery_fee,
-  //    }
+        if (response.data.success) {
+          const { firstName, lastName, email } = response.data.user;
+          setFormData((prev) => ({
+            ...prev,
+            firstName,
+            lastName,
+            email,
+          }));
+        } else {
+          toast.error("Failed to fetch user info");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    };
 
-  //   // If logged in, attach userId (from token decode or stored in context)
-  //   if (token && token.userId) {
-  //     orderData.userId = token.userId;
-  //   }
-
-  //    switch(method){
-  //     // API Calls for COD
-  //     case 'cod' :
-  //       const response = await axios.post(backendUrl + '/api/order/place', orderData, {headers: {token}})
-       
-  //       if (response.data.success) {
-  //         setCartItems({})
-  //         navigate('/orders')
-                   
-  //       } else {
-  //         toast.error(response.data.message)
-  //       }
-  //     break;
-
-  //     default:
-  //       break
-
-  //    }
-      
-
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error(error.message)
-      
-  //   }
-  // }
-
+    fetchUserInfo();
+  }, [token, backendUrl]);
 
 const onSubmitHandler = async (event) => {
   event.preventDefault();

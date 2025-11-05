@@ -140,4 +140,28 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export { listProducts, addProduct, removeProduct, singleProduct, editProduct }
+// Search products
+const searchProducts = async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) {
+      return res.json({ success: true, products: [] });
+    }
+
+    const products = await productModel.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+        { brand: { $regex: query, $options: "i" } }
+      ]
+    });
+
+    res.json({ success: true, products });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+
+export { listProducts, addProduct, removeProduct, singleProduct, editProduct, searchProducts }

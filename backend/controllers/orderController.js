@@ -1,43 +1,55 @@
 ﻿import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
+
 
 //COD orders
 const placeOrder = async (req, res) => {
-    try {
-        const {userId,items,amount,address} = req.body;
+  try {
+    const { items, amount, address } = req.body;
+    let userId = null;
 
-        const orderData = {
-            
-            items,
-            amount,
-            address,
-            status: 'Order Placed',
-            paymentMethod: 'COD',
-            payment: false,
-            date: Date.now(),
-        };
-
-        if (userId) {
-            orderData.userId = userId;
-        }
-
-        const newOrder = new orderModel(orderData);
-        await newOrder.save()
-
-        // Clear cart only for logged-in users
-        if (userId) {
-            await userModel.findByIdAndUpdate(userId, { cartData: {} });
-        }
-
-        // res.json({success:true, message: 'Order Placed Successfully'})
-        res.json({ success: true, message: 'Order Placed Successfully', order: newOrder });
-
-    } catch (error) {
-        console.log(error);
-        res.json({success:false, message:error})
-        
+    // ✅ Extract userId from token if provided (for logged-in users)
+    const { token } = req.headers;
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        userId = decoded.id;
+      } catch (error) {
+        console.log("Invalid token, proceeding as guest checkout");
+      }
     }
-}
+
+    const orderData = {
+      items,
+      amount,
+      address,
+      status: "Order Placed",
+      paymentMethod: "COD",
+      payment: false,
+      date: Date.now(),
+    };
+
+    if (userId) orderData.userId = userId;
+
+    const newOrder = new orderModel(orderData);
+    await newOrder.save();
+
+    // ✅ Clear cart only for logged-in users
+    if (userId) {
+      await userModel.findByIdAndUpdate(userId, { cartData: {} });
+    }
+
+    res.json({
+      success: true,
+      message: "Order Placed Successfully",
+      order: newOrder,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 //Stripe orders
 const placeOrderStripe = async (req, res) => {
@@ -64,23 +76,15 @@ const allOrders = async (req, res) => {
 
 //All user orders
 const userOrders = async (req, res) => {
-
-    try {
-        
-        const {userId} = req.body;
-
-        const orders = await orderModel.find({userId})
-
-        res.json({success:true, orders})
-
-
-    } catch (error) {
-        console.log(error);
-        res.json({success:false, message:error})
-        
-    }
-
-}
+  try {
+    const { userId } = req.body;
+    const orders = await orderModel.find({ userId }).sort({ date: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 //Update order staturs
 const updateStaus = async (req, res) => {

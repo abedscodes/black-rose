@@ -20,12 +20,12 @@ const developers = [
     image: assets.dev_profile_3,
     description: 'Planning & Product Mapping'
   },
-  {
-    name: 'Deep Patel',
-    role: 'Intern',
-    image: assets.dev_profile_4,
-    description: 'Wire Framing'
-  }
+  // {
+  //   name: 'Deep Patel',
+  //   role: 'Intern',
+  //   image: assets.dev_profile_4,
+  //   description: 'Wire Framing'
+  // }
 ]
 
 const DeveloperCard = ({ developer }) => {

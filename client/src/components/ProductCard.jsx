@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { FaShoppingCart } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 
 import "./ProductCard.css";
@@ -12,6 +13,8 @@ const ProductCard = ({ id,image,name,price, brand }) => {
   const handleAddToCart = (e) => {
     e.preventDefault(); // prevents Link navigation when clicking the icon
     addToCart(id);
+    toast.success("Added to cart!");
+
 
   };
 
