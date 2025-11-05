@@ -37,13 +37,13 @@ const Footer = () => {
           <Col xs={6} md={3}>
             <h5>Brands</h5>
             <ul className="list-unstyled">
-              <li><a href="#">Canon</a></li>
-              <li><a href="#">Nikon</a></li>
-              <li><a href="#">Olympus</a></li>
-              <li><a href="#">Sony</a></li>
-              <li><a href="#">Panasonic</a></li>
-              <li><a href="#">Fujifilm</a></li>
-              <li><a href="#">Many More..</a></li>
+              
+              <li><Link to={`/brand/canon`}>Canon</Link></li>
+              <li><Link to={`brand/nikon`}>Nikon</Link></li>
+              <li><Link to={`brand/olympus`}>Olympus</Link></li>
+              <li><Link to={`brand/sony`}>Sony</Link></li>
+              <li><Link to={`brand/panasonic`}>Panasonic</Link></li>
+              <li><Link to={`brand/fujifilm`}>Fujifilm</Link></li>
             </ul>
           </Col>
 

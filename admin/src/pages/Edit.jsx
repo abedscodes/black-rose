@@ -77,7 +77,7 @@ const Edit = ({token}) => {
 
       if (response.data.success) {
         toast.success(response.data.message)
-        navigate('/list') // Redirect after successful update
+        navigate('/list')
       } else {
         toast.error(response.data.message)
       }
