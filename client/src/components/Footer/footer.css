@@ -10,6 +10,7 @@ footer{
   background-color: var(--background-footer);
   color: var(--background-white);
   font-family: var(--secondary-font);
+  margin-top: 20px;
 }
 
 .footer-custom .footer-logo {
