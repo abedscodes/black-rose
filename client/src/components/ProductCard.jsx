@@ -12,7 +12,6 @@ const ProductCard = ({ id,image,name,price, brand }) => {
   const handleAddToCart = (e) => {
     e.preventDefault(); // prevents Link navigation when clicking the icon
     addToCart(id);
-    toast.success("Added to cart!");
 
   };
 
