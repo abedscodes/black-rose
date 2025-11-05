@@ -61,6 +61,59 @@ const listProducts = async (req, res) => {
     }
 }
 
+// function to edit a product
+const editProduct = async (req, res) => {
+  try {
+    const { name, description, price, category, brand, sizes, popularItem } = req.body;
+    const productId = req.params.id;
+
+    // Find the product by its ID
+    const product = await productModel.findById(productId);
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    const image1 = req.files.image1 && req.files.image1[0];
+    const image2 = req.files.image2 && req.files.image2[0];
+    const image3 = req.files.image3 && req.files.image3[0];
+    const image4 = req.files.image4 && req.files.image4[0];
+
+    // Collect existing images if new ones aren't uploaded
+    const images = [image1, image2, image3, image4].filter((item) => item !== undefined);
+
+    // Process image upload
+    let imagesUrl = product.image;  // retain existing images if no new image is provided
+    if (images.length > 0) {
+      imagesUrl = await Promise.all(
+        images.map(async (item) => {
+          let result = await cloudinary.uploader.upload(item.path, { resource_type: 'image' });
+          return result.secure_url;
+        })
+      );
+    }
+
+    // Update product details
+    product.name = name || product.name;
+    product.description = description || product.description;
+    product.price = price || product.price;
+    product.category = category || product.category;
+    product.brand = brand || product.brand;
+    product.sizes = JSON.parse(sizes) || product.sizes;
+    product.popularItem = popularItem === "true" ? true : false;
+    product.image = imagesUrl;
+    product.date = Date.now();
+
+    // Save updated product
+    await product.save();
+
+    res.json({ success: true, message: "Product Updated Successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 //function to remove product
 const removeProduct = async (req, res) => {
     try {
@@ -87,4 +140,4 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export { listProducts, addProduct, removeProduct, singleProduct }
+export { listProducts, addProduct, removeProduct, singleProduct, editProduct }
